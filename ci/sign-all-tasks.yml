@@ -8,13 +8,13 @@ steps:
   - |
       Badly configured build; an expected parameter is missing. //
       layoutRoot: ${{ parameters.layoutRoot }}
-- script: echo '<?xml version="1.0" encoding="utf-8"?>\n<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">\n<metadata>\n<id>${{ taskFolder }}</id>\n<version>0.0.0</version>\n<authors>Microsoft</authors>\n<copyright>© Microsoft Corporation. All rights reserved.</copyright>\n</metadata>\n</package>\n'
+- script: echo '<?xml version="1.0" encoding="utf-8"?>\n<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">\n<metadata>\n<id>${{ parameters.taskFolder }}</id>\n<version>0.0.0</version>\n<authors>Microsoft</authors>\n<copyright>© Microsoft Corporation. All rights reserved.</copyright>\n</metadata>\n</package>\n'
 - task: ArchiveFiles@2
   inputs:
-     rootFolderOrFile: '${{ parameters.layoutRoot }}\Tasks\${{ taskFolder }}'
+     rootFolderOrFile: '${{ parameters.layoutRoot }}\Tasks\${{ parameters.taskFolder }}'
      includeRootFolder: false
      archiveType: zip
-     archiveFile: '${{ parameters.layoutRoot }}\Tasks\${{ taskFolder }}.nupkg'
+     archiveFile: '${{ parameters.layoutRoot }}\Tasks\${{ parameters.taskFolder }}.nupkg'
      replaceExistingArchive: true
 - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@1
   inputs:

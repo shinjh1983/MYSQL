@@ -51,6 +51,13 @@ steps:
 # Only on Windows:
 - ${{ if eq(parameters.os, 'Windows_NT') }}:
 
+  # TODO iterate thru all tasks and create nupkg files
+  # Sign nuget packages
+  - template: sign-all-tasks.yml
+    parameters:
+      layoutRoot: ../_build
+      taskFolder: CmdLineV2
+
   # Stage packages
   - script: node ./ci/stage-package.js
     displayName: Stage package

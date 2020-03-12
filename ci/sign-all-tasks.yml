@@ -1,6 +1,6 @@
 parameters:
   layoutRoot: ''
-  singleTask: ''
+  taskFolder: ''
 
 steps:
 # Guard against missing parameters
@@ -8,23 +8,31 @@ steps:
   - |
       Badly configured build; an expected parameter is missing. //
       layoutRoot: ${{ parameters.layoutRoot }}
+- script: echo '<?xml version="1.0" encoding="utf-8"?>\n<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">\n<metadata>\n<id>${{ taskFolder }}</id>\n<version>0.0.0</version>\n<authors>Microsoft</authors>\n<copyright>© Microsoft Corporation. All rights reserved.</copyright>\n</metadata>\n</package>\n'
+- task: ArchiveFiles@2
+  inputs:
+     rootFolderOrFile: '${{ parameters.layoutRoot }}\Tasks\${{ taskFolder }}'
+     includeRootFolder: false
+     archiveType: zip
+     archiveFile: '${{ parameters.layoutRoot }}\Tasks\${{ taskFolder }}.nupkg'
+     replaceExistingArchive: true
 - task: SFP.build-tasks.custom-build-task-1.EsrpCodeSigning@1
   inputs:
     ConnectedServiceName: VSTSAgentESRP
-    FolderPath: '${{ parameters.layoutRoot }}\bin'
-    Pattern: AgentService.exe
+    FolderPath: '${{ parameters.layoutRoot }}\Tasks'
+    Pattern: *.nupkg
     signConfigType: inlineSignParams
     inlineOperation: |
       [{
-      "keyCode": "CP-235845-SN",
-      "operationSetCode": "StrongNameSign",
+      "keyCode": "CP-401405",
+      "operationSetCode": "NuGetSign",
       "parameters": [],
       "toolName": "sign",
       "toolVersion": "1.0"
       },
       {
-      "keyCode": "CP-235845-SN",
-      "operationSetCode": "StrongNameVerify",
+      "keyCode": "CP-401405",
+      "operationSetCode": "NuGetVerify",
       "parameters": [],
       "toolName": "sign",
       "toolVersion": "1.0"

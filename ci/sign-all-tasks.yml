@@ -20,7 +20,7 @@ steps:
   inputs:
     ConnectedServiceName: VSTSAgentESRP
     FolderPath: '${{ parameters.layoutRoot }}\Tasks'
-    Pattern: *.nupkg
+    Pattern: '*.nupkg'
     signConfigType: inlineSignParams
     inlineOperation: |
       [{

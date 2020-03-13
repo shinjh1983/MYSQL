@@ -45,6 +45,7 @@ steps:
 
 # TODO remove -- setting task_pattern directly
 - script: echo ##vso[task.setVariable variable=task_pattern]@CmdLineV2
+- script: echo ##vso[task.setVariable variable=numTasks]1
 
 # Build
 - script: node make.js build --task "$(task_pattern)"

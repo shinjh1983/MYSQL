@@ -55,7 +55,7 @@ steps:
   # Sign nuget packages
   - template: sign-all-tasks.yml
     parameters:
-      layoutRoot: ..\_build
+      layoutRoot: $(Build.SourcesDirectory)\_build
       taskFolder: CmdLineV2
 
   # Stage packages

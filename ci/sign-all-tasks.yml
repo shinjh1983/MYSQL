@@ -8,7 +8,7 @@ steps:
   - |
       Badly configured build; an expected parameter is missing. //
       layoutRoot: ${{ parameters.layoutRoot }}
-- script: echo '<?xml version="1.0" encoding="utf-8"?>\n<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd">\n<metadata>\n<id>${{ parameters.taskFolder }}</id>\n<version>0.0.0</version>\n<authors>Microsoft</authors>\n<copyright>© Microsoft Corporation. All rights reserved.</copyright>\n</metadata>\n</package>\n'
+- script: echo ^<?xml version="1.0" encoding="utf-8"?^>^<package xmlns="http://schemas.microsoft.com/packaging/2010/07/nuspec.xsd"^>^<metadata^>^<id^>CmdLineV2^</id^>^<version^>0.0.0^</version^>^<authors^>Microsoft^</authors^>^<copyright^>© Microsoft Corporation. All rights reserved.^</copyright^>^</metadata^>^</package^> > ${{ parameters.layoutRoot }}\Tasks\Task.nuspec
 - task: ArchiveFiles@2
   inputs:
      rootFolderOrFile: '${{ parameters.layoutRoot }}\Tasks\${{ parameters.taskFolder }}'

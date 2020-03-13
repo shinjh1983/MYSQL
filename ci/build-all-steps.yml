@@ -48,7 +48,7 @@ steps:
 - script: echo "##vso[task.setVariable variable=numTasks]1"
 
 # Build
-- script: node make.js build --task "$(task_pattern)"
+- script: node make.js build --task DeleteFilesV1
   displayName: Build
   condition: ne(variables['numTasks'], 0)
 
